@@ -9,15 +9,19 @@ LOCATORS = {
   'From header' => { id: 'header_text_unit_from' },
   'To header' => { id: 'header_text_unit_to' },
   'From field' => { id: 'header_value_from' },
-  'To field' => { id: 'header_value_to' }
-}.freeze
+  'To field' => { id: 'header_value_to' },
+  'left column' => { id: 'radio_group_from' },
+  'toolbar' => { id: 'toolbar' },
+  'Area' => { xpath: "//android.widget.TextView[@text='Area']" }
+}
 
 Given(/^I land on help popup$/) do
   text('Help')
 end
 
-Then(/^I land on Area screen$/) do
-  text('Area')
+Then(/^I land on ([^"]*) screen$/) do |value|
+  find_element(LOCATORS['toolbar'])
+    .find_element(LOCATORS[value])
 end
 
 When(/^I click on ([^"]*)$/) do |value|
@@ -36,4 +40,9 @@ end
 And(/^I press "([^"]*)" on soft keyboard$/) do |value|
   digits = value.split('')
   digits.each { |key| press_keycode 7 + Integer(key) }
+end
+
+When(/^I select "([^"]*)" from ([^"]*)$/) do |value, element|
+  find_element(LOCATORS[element])
+    .find_element(xpath: "//android.widget.RadioButton[@text='#{value}']").click
 end

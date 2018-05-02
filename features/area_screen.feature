@@ -34,3 +34,23 @@ Feature: User is able to convert area units
       |0.99999999999|1000000    |
       |.            |0          |
       |             |0          |
+
+  Scenario Outline: User is able to select units for conversion
+    When I select "<target>" from left column
+    Then I see "<target>" in From header
+    Then I see "Sq Metre" in To header
+    Then I get "<result>" in To field
+    Examples:
+      |target             |result       |
+      |Sq Metre           |1            | 
+      |Sq Centimetre      |0.0001       | 
+      |Hectare            |10000        | 
+      |Sq Mile            |2589988.1103 | 
+      |Sq Yard            |0.8361       | 
+      |Sq Foot            |0.0929       | 
+      |Sq Inch            |0.0006       | 
+      |Acre               |4046.8564    |  
+
+
+
+                     
