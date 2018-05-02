@@ -1,35 +1,39 @@
-Given(/^I land on help popup$/) do
-  puts("User lands on Help popup")
+def dummy_assert(actual, expected)
+  raise("Expected value is #{expected}, but got #{actual}") if actual != expected
 end
 
-When(/^I click on Got it button$/) do
-  puts("User clicks on Got it button")
+LOCATORS = {
+  'Got it button' => { id: 'button1' },
+  'Swap button' => { id: 'fab' },
+  'Clear button' => { id: 'menu_clear' },
+  'From header' => { id: 'header_text_unit_from' },
+  'To header' => { id: 'header_text_unit_to' },
+  'From field' => { id: 'header_value_from' },
+  'To field' => { id: 'header_value_to' }
+}.freeze
+
+Given(/^I land on help popup$/) do
+  text('Help')
 end
 
 Then(/^I land on Area screen$/) do
-  puts("User lands on Area screen")
+  text('Area')
 end
 
-When(/^I click on Swap button$/) do
-  puts("User clicks Swap button")
+When(/^I click on ([^"]*)$/) do |value|
+  find_element(LOCATORS[value]).click
 end
 
-Then(/^I see "([^"]*)" in From header$/) do |value|
-  puts("From header values is " + value)
+Then(/^I (?:see|get) "([^"]*)" in ([^"]*)$/) do |value, element|
+  actual_value = find_element(LOCATORS[element]).text
+  dummy_assert(actual_value, value)
 end
 
-And(/^I see "([^"]*)" in To header$/) do |value|
-  puts("To header values is #{value}")
+When(/^I enter "([^"]*)" to ([^"]*)$/) do |value, element|
+  find_element(LOCATORS[element]).send_keys(value)
 end
 
-And(/^I click on Clear button$/) do
-  puts("User clicks on Clear button")
-end
-
-When(/^I enter "([^"]*)" to From field$/) do |value|
-  puts("User entered value #{value}")
-end
-
-Then(/^I get "([^"]*)" in To field$/) do |value|
-  puts("User sees #{value} in result field")
+And(/^I press "([^"]*)" on soft keyboard$/) do |value|
+  digits = value.split('')
+  digits.each { |key| press_keycode 7 + Integer(key) }
 end

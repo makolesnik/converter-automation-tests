@@ -1,5 +1,5 @@
-source "https://rubygems.org"
+source 'https://rubygems.org'
 
-gem "cucumber"
+gem 'cucumber'
 
-gem "appium_lib"
+gem 'appium_lib'
