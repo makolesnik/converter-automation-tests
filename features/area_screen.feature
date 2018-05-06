@@ -3,7 +3,7 @@ Feature: User is able to convert area units
 
   Background:
     When I click on Got it button
-    Then I land on Area screen
+    Then I land on "Area" screen
 
   Scenario: User is able to swap values
     Given I see "Sq Kilometre" in From header
@@ -36,7 +36,7 @@ Feature: User is able to convert area units
       |             |0          |
 
   Scenario Outline: User is able to select units for conversion
-    When I select "<target>" from left column
+    When I select "<target>" from From column
     Then I see "<target>" in From header
     Then I see "Sq Metre" in To header
     Then I get "<result>" in To field

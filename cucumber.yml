@@ -1,0 +1,6 @@
+menu: -t @menu --format html --out report.html --format pretty
+area: -t @area --format html --out report.html --format pretty
+volume: -t @volume --format html --out report.html --format pretty
+
+wip: -t @wip --format html --out report.html --format pretty
+all: --format html --out report.html --format pretty
